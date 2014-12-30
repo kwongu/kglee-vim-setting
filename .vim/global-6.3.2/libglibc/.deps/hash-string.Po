@@ -1,3 +1,0 @@
-hash-string.o: hash-string.c hash-string.h
-
-hash-string.h:

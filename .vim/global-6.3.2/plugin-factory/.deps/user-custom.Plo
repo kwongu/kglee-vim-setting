@@ -1,3 +1,0 @@
-user-custom.lo: user-custom.c ../libparser/parser.h
-
-../libparser/parser.h:
