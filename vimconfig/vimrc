@@ -1,0 +1,475 @@
+"주의: Source Explorer의 충돌을 피하기 위해서 SrcExpl_pluginList를 새로 작성
+
+"====================================================
+"= Bundle
+"====================================================
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+Bundle 'snipMate'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'The-NERD-tree'
+Bundle 'taglist.vim'
+Bundle 'bufexplorer.zip'
+Bundle 'DirDiff.vim'
+Bundle 'git://github.com/wesleyche/SrcExpl.git'
+Bundle 'SuperTab'
+Bundle 'SuperTab-continued.'
+Bundle 'cscope_macros.vim'
+Bundle 'gtags.vim'
+Bundle 'OmniCppComplete'
+Bundle 'armasm'
+Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
+"주석달기: \cc, \cn, \cs
+"다른모양 주석 설정: \ca
+"주석해제: \<space>
+Bundle 'The-NERD-Commenter'
+Bundle 'AutoComplPop'
+Bundle 'minibufexpl.vim'
+Bundle 'grep.vim'
+Bundle 'ack.vim'
+Bundle 'git-file.vim'
+Bundle 'Tagbar'
+Bundle 'lookupfile'
+Bundle 'genutils'
+Bundle 'LustyExplorer'
+Bundle 'rking/ag.vim'
+"Bundle 'unite.vim'
+"Bundle 'ctrlp.vim'
+
+:filetype plugin indent on     " required!
+
+"====================================================
+"= 어셈블리 파일을 C처럼 인식하여 주석을 달기 위한 트릭
+"====================================================
+au BufRead,BufNewFile *.S		set ft=c
+
+"====================================================
+"= 기본 설정
+"====================================================
+set cindent			"들여쓰기 설정
+set ruler			" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
+set number			" 줄번호 출력
+set modifiable
+set hlsearch			" Highlight Search
+set ts=4			" tab stop - tab 크기
+set sw=4			" shift width - shift 크기 조절
+set sts=4			" soft tab stop - tab 이동 크기
+set expandtab
+set incsearch
+set printoptions=portrait:n,wrap:n,duplex:off
+set fileencodings=utf-8,euc-kr
+set gfn=나눔고딕코딩\ 12	" gvim용 폰트 설정
+"colorscheme desert
+
+"==========================
+"= autocmd
+"==========================
+autocmd BufEnter *.c        setlocal ts=4 sw=4 sts=4 noexpandtab
+autocmd BufEnter *.S        setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter *.py       setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter Makefile   setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter .*         setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.md       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.sh       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"====================================================
+"= gtags.vim 설정
+"====================================================
+"nmap <C-F3> :copen<CR>
+"nmap <C-F4> :cclose<CR>
+"nmap <C-F5> :Gtags<SPACE>
+"nmap <C-F6> :Gtags -f %<CR>
+"nmap <C-F7> :GtagsCursor<CR>
+"nmap <C-F8> :Gozilla<CR>
+"nmap <C-n> :cn<CR>
+"nmap <C-p> :cp<CR>
+"nmap <C-\><C-]> :GtagsCursor<CR>
+let g:Gtags_OpenQuickfixWindow = 0
+nmap [25~ :copen<CR>			"<S-F3>
+nmap [26~ :cclose<CR>         	"<S-F4>
+nmap [28~ :Gtags<SPACE>
+nmap [29~ :Gtags -f %<CR>     	"<S-F6>
+nmap [31~ :GtagsCursor<CR>    	"<S-F7>
+nmap [32~ :Gozilla<CR>        	"<S-F8>
+nmap <C-n> :cn<CR>
+nmap <C-p> :cp<CR>
+nmap <C-\><C-]> :GtagsCursor<CR>
+
+"====================================================
+"= 키맵핑
+"====================================================
+" <F3> 이전 정의로 이동 (SrcExpl 플러그인이 설정)
+" <F4> 다음 정의로 이동 (SrcExpl 플러그인이 설정)
+map ,f v]}zf
+map ,c zi
+map ,t :po<CR>
+map ,g :ta<CR>
+map ,s :tags<CR>
+
+
+"===== tab 전환
+map .r gt
+map .e gT
+
+
+"nmap <F5> :MiniBufExplorer<CR>
+nmap <F6> :BufExplorer<CR>
+"nmap <F6> :BufExplorerVerticalSplit<CR>
+"nmap <F6> :BufExplorerHorizontalSplit<CR>
+"nmap <F7> :TlistToggle<CR>
+nmap <F7> :TagbarToggle<CR>
+nmap <F8> :SrcExplToggle<CR>
+nmap <F9> :NERDTreeToggle<CR>
+
+"=====  PageUP PageDown
+map <PageUp> <C-U><C-U>
+map <PageDown> <C-D><C-D>
+
+"===== Vim 내의 창 크기 조절
+nmap <s-h> <C-W><
+nmap <s-j> <C-W>-
+nmap <s-k> <C-W>+
+nmap <s-l> <C-W>>
+
+"===== Vim 내에서 창 간 이동
+nmap <c-h> <c-w>h
+nmap <c-j> <c-w>j 
+nmap <c-k> <c-w>k 
+nmap <c-l> <c-w>l 
+
+"===== 버퍼간 이동
+map ,r :bn!<CR>	  " Switch to Next File Buffer
+map ,e :bp!<CR>	  " Switch to Previous File Buffer
+map ,w :bw!<CR>	  " Close Current File Buffer
+
+map ,1 :b!1<CR>	  " Switch to File Buffer #1
+map ,2 :b!2<CR>	  " Switch to File Buffer #2
+map ,3 :b!3<CR>	  " Switch to File Buffer #3
+map ,4 :b!4<CR>	  " Switch to File Buffer #4
+map ,5 :b!5<CR>	  " Switch to File Buffer #5
+map ,6 :b!6<CR>	  " Switch to File Buffer #6
+map ,7 :b!7<CR>	  " Switch to File Buffer #7
+map ,8 :b!8<CR>	  " Switch to File Buffer #8
+map ,9 :b!9<CR>	  " Switch to File Buffer #9
+map ,0 :b!0<CR>	  " Switch to File Buffer #0
+
+"===== gtags.vim
+nmap <C-n> :cn<CR>
+nmap <C-p> :cp<CR>
+nmap <C-\><C-]> :GtagsCursor<CR>
+
+
+
+"===== make bootloader
+let startbootdir = getcwd()
+func Make1()
+	exe "!cd ".startbootdir
+	"exe "make tcc8920_evm_emmc -j8"
+	exe "make" 
+endfunc
+nmap ,mb :call Make1()<cr><cr>
+
+"===== make kernel
+let startkerneldir = getcwd()
+func! Make()
+	exe "!cd ".startkerneldir
+	"exe "make -j12"
+	"exe "make -j12;./tcc_mkrd.sh"
+	"exe "make -j12;./tcc_initramfs_compress.sh"
+	exe "!./mkall.sh -j12 ramdisk"
+endfunc
+nmap ,mk :call Make()<cr><cr>
+
+"===== hexViewer
+let b:hexViewer = 0
+func! Hv()
+        if (b:hexViewer == 0)
+                let b:hexViewer = 1
+                exe "%!xxd"
+        else
+                let b:hexViewer = 0
+                exe "%!xxd -r"
+        endif
+endfunc
+nmap ,h :call Hv()<cr>
+
+"===== man
+func! Man()
+	let sm = expand("<cword>")
+	exe "!man -S 2:3:4:5:6:7:8:9:tcl:n:l:p:o ".sm
+endfunc
+nmap ,ma :call Man()<cr><cr>
+
+"====================================================
+"= Source Explorer config
+"====================================================
+
+" // Set the height of Source Explorer window
+let g:SrcExpl_winHeight = 12
+" // Set 100 ms for refreshing the Source Explorer
+let g:SrcExpl_refreshTime = 100
+" // Set "Enter" key to jump into the exact definition context
+let g:SrcExpl_jumpKey = "<ENTER>"
+" // Set "Space" key for back from the definition context
+let g:SrcExpl_gobackKey = "<SPACE>"
+
+" // In order to avoid conflicts, the Source Explorer should know what plugins
+" // except itself are using buffers. And you need add their buffer names into
+" // below listaccording to the command ":buffers!"
+let g:SrcExpl_pluginList = [
+				\ "__Tag_List__",
+				\ "NERD_tree_1",
+				\ "Source_Explorer",
+				\ "[BufExplorer]"
+				\ ]
+
+" // Enable/Disable the local definition searching, and note that this is not
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now.
+" // It only searches for a match with the keyword according to command 'gd'
+let g:SrcExpl_searchLocalDef = 1
+" // Do not let the Source Explorer update the tags file when opening
+let g:SrcExpl_isUpdateTags = 0
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
+" // create/update the tags file
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+" // Set "<F12>" key for updating the tags file artificially
+let g:SrcExpl_updateTagsKey = "<F12>"
+
+" // Set "<F3>" key for displaying the previous definition in the jump list
+let g:SrcExpl_prevDefKey = "[13~"
+" // Set "<F4>" key for displaying the next definition in the jump list
+let g:SrcExpl_nextDefKey = "[14~"
+
+
+
+
+"====================================================
+"= Tag List
+"====================================================
+filetype on "vim filetpye on
+let Tlist_Ctags_Cmd="/usr/bin/ctags"
+let Tlist_Inc_Winwidth=0
+let Tlist_Exit_OnlyWindow=0
+"window close=off
+let Tlist_Auto_Open=0
+let Tlist_Use_Right_Window=0
+
+"====================================================
+"= Project config
+"====================================================
+if filereadable(".project.vimrc")
+	source .project.vimrc
+endif
+
+"====================================================
+"= NERD Tree
+"====================================================
+let NERDTreeWinPos="right"
+"let NERDTreeWinPos="left"
+let g:NERDTreeWinSize=25
+let g:NERDTreeDirArrows=0
+
+"====================================================
+"= minibufexpl 
+"====================================================
+let g:miniBufExplMapWindowNavVim = 1 
+let g:miniBufExplMapWindowNavArrows = 1 
+let g:miniBufExplMapCTabSwitchBufs = 1 
+let g:miniBufExplModSelTarget = 1 
+
+"====================================================
+"= tags 설정 (cscope, ctags)
+"====================================================
+
+"Cscope의 상대경로 문제를 해결하기 위해서 매번 cscope.out파일을 새로 읽는다.
+function! LoadCscope()
+  exe "silent cs reset"
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  endif
+endfunction
+au BufEnter /* call LoadCscope()
+ 
+"현재 디렉토리부터 root 디렉토리까지 tags를 찾는다.
+set tags=tags;/
+
+
+"====================================================
+"= Check Symbol
+"====================================================
+source ~/vimconfig/plugins/checksymbol.vim
+
+
+"====================================================
+"= minibuffer change
+"====================================================
+source ~/vimconfig/plugins/minibufferchange.vim
+
+"====================================================
+"= my setting
+"====================================================
+set mouse=a
+set magic
+"set paste!
+set nows
+"set cul	" cursor line 사용
+autocmd FileType make setlocal noexpandtab "Makefile 수정 중에는 TAB 사용
+set laststatus=2
+set t_Co=256
+set bg=dark
+set path+=/root/work/include,/usr/include,/usr/local/include,/usr/src/include
+"set path+=./include
+set shell=/bin/bash
+set hidden
+
+"colorscheme desertEx
+colorscheme badwolf
+
+"===== vim grep 설정
+"set grepprg=grep\ --color=always\ -n\ $*\ /dev/null
+"set makeprg=make\ EXTRA_CFLAGS=-fcolor-diagnostic
+"let $grepfile="*.[ch] *.cpp"
+"map ,gr :grep --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" -nRI <cword> *<CR>
+"map ,gf :grep --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" -nRI 
+map ,gr :!/bin/grep --color=auto --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" --exclude="*.lst" -nRI <cword> *<CR>
+map ,gf :!/bin/grep --color=auto --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" -nRI 
+
+let g:Grep_Skip_Dirs='.svn'
+let Grep_Path = '/bin/grep'
+let Grep_OpenQuickfixWindow = 1
+let Grep_Default_Options = '--exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" --exclude="*.lst" -nRI'
+"nmap <C-f> :Grep<CR>
+nnoremap <silent> <C-g> :Grep<CR>
+map <C-x><C-x> :GitGrep <C-R>=expand("<cword>")<CR>
+
+fu Header_Path_Set(var)
+	let &path = a:var . '/include,' . &path
+	let sym = "CONFIG_ARCH_TCC89"
+	if sym =~# '^CONFIG_'
+		let config = findfile(".config", ".;")
+		if config != ""
+			let hit = 0
+			for line in readfile(config, '')
+				let str = strpart(line, 0, 17)
+				if str =~# sym
+					echo line
+					let part = strpart(line, 0, 19)
+					let hit += 1
+					if part =~ "CONFIG_ARCH_TCC8900"
+						let temp = a:var . '/arch/arm/mach-tcc8900/include,'
+						echo temp
+						let &path = temp . &path
+						let temp = a:var . '/arch/arm/include,'
+						echo temp
+						let &path = temp . &path
+					endif
+					if part =~ "CONFIG_ARCH_TCC892X"
+						let temp = a:var . '/arch/arm/mach-tcc892x/include,'
+						echo temp
+						let &path = temp . &path
+						let temp = a:var . '/arch/arm/include,'
+						echo temp
+						let &path = temp . &path
+					endif
+					if part =~ "CONFIG_ARCH_TCC893X"
+						let temp = a:var . '/arch/arm/mach-tcc893x/include,'
+						echo temp
+						let &path = temp . &path
+						let temp = a:var . '/arch/arm/include,'
+						echo temp
+						let &path = temp . &path
+					endif
+					break
+				endif
+			endfo
+			if hit == 0 | echo "# " . sym . " not found" | endif
+		else
+			echo "config file not found"
+		endif
+	else
+       "         if sym =~? '^\(#\|=\)\?\([0-9]\+\|0x[0-9a-f]\+\)$'
+			"if sym =~ '^\(=\|#\)' | let sym = sym[1:] | endif
+			"echo NumFmt(sym)
+		"endif
+	endif
+endfu
+
+nmap <F10> :call Header_Path_Set(getcwd())<CR>
+nmap <F11> :!make tags cscope gtags -j4<CR>
+map [12~ :!ctags -R;mkcscope.sh;gtags<CR>
+map <F2> :!ctags -R;mkcscope.sh;gtags<CR>
+map ,pa :set paste<CR>		"paste
+map ,np :set nopaste<CR>	"nopaste
+
+"nnoremap <C-p> :Unite file_rec/async<cr>
+
+let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'FavFile':{}, 'Tag':{}, 'TaggedFile':{}}
+" 특정 파일 제외
+let g:FuzzyFinderOptions.File.excluded_path = '\v\~$|\.o$|\.exe$|\.bak$|\.swp$|\.class$|\.settings$|CVS|((^|[/\\])\.[/\\]$)'
+" 대소문자 구분하기 (0 : 대소문자 구분, 1 : 대소문자 구분 안함)
+let g:FuzzyFinderOptions.Base.ignore_case = 0
+
+" 현재 디렉토리 이하에서 파일명으로 검색해서 읽어오기
+"map <Leader>ff <ESC>:FufFile \*\*\/<CR>
+
+" 버퍼 목록에서 검색해서 이동하기
+"map <Leader>fb <ESC>:FufBuffer<CR>
+
+
+"====================================================
+"= ack.vim 설정
+"====================================================
+let g:ackprg = 'ag --vimgrep'
+
+"====================================================
+"= ag.vim 설정
+"====================================================
+"let g:agprg="ag --nogroup --nocolor --column"
+"let g:agprg="ag --nogroup --nocolor --column"
+let g:agprg="ag --column"
+"let g:agprg="ag --column -i"
+"let g:agprg="ag --column --print0"
+map <Leader>f <ESC>:AgFile 
+map <Leader>a <ESC>:Ag <C-R>=expand("<cword>")<CR>
+nnoremap <Leader>g <ESC>:Grep<CR>
+nmap ,o :copen<CR>			"<S-F3>
+nmap ,c :cclose<CR>         	"<S-F4>
+
+" window
+nmap <leader>sw<left>  :topleft  vnew<CR>
+nmap <leader>sw<right> :botright vnew<CR>
+nmap <leader>sw<up>    :topleft  new<CR>
+nmap <leader>sw<down>  :botright new<CR>
+" buffer
+nmap <leader>s<left>   :leftabove  vnew<CR>
+nmap <leader>s<right>  :rightbelow vnew<CR>
+nmap <leader>s<up>     :leftabove  new<CR>
+nmap <leader>s<down>   :rightbelow new<CR>
+
+" Show quickfix window with full width
+botright cwindow
+
