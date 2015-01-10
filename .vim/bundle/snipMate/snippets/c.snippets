@@ -108,3 +108,15 @@ snippet .
 	[${1}]${2}
 snippet un
 	unsigned
+snippet cc
+	/*! ARM11B `system("date +%Y%m%d")`
+	  ${1:write your comment}
+	*/
+	 
+snippet cc1
+	/*! ARM11B `system("date +%Y%m%d")` ${1:write your comment}
+	*/
+snippet cc2
+	/*! start ARM11B `system("date +%Y%m%d")` ${1:write your comment}
+	 *
+	 *///end ARM11B `system("date +%Y%m%d")` $1
