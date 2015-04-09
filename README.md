@@ -1,7 +1,7 @@
 kklee-vim-setting
 =================
 
-color : badwolf
+color : jellybeans
 
 
 Download :
