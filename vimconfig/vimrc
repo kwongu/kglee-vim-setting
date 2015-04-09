@@ -41,7 +41,7 @@ Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
 "주석해제: \<space>
 Bundle 'The-NERD-Commenter'
 Bundle 'AutoComplPop'
-Bundle 'minibufexpl.vim'
+"Bundle 'minibufexpl.vim'
 Bundle 'grep.vim'
 Bundle 'ack.vim'
 Bundle 'git-file.vim'
@@ -349,7 +349,8 @@ set hidden
 set cursorline
 
 "colorscheme desertEx
-colorscheme badwolf
+"colorscheme badwolf
+colorscheme jellybeans
 
 "===== vim grep 설정
 "set grepprg=grep\ --color=always\ -n\ $*\ /dev/null
