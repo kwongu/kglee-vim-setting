@@ -1,4 +1,4 @@
-"주의: Source Explorer의 충돌을 피하기 위해서 SrcExpl_pluginList를 새로 작성
+"주의: Source Explorer??충돌????하?????해??SrcExpl_pluginList?????로 ??성
 
 "====================================================
 "= Bundle
@@ -18,27 +18,28 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 Bundle 'snipMate'
 Bundle 'L9'
-Bundle 'FuzzyFinder'
+"Bundle 'FuzzyFinder'
+"Bundle 'fugitive.vim'
 Bundle 'The-NERD-tree'
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'DirDiff.vim'
 Bundle 'git://github.com/wesleyche/SrcExpl.git'
 Bundle 'SuperTab'
-Bundle 'SuperTab-continued.'
+"Bundle 'SuperTab-continued.'
 Bundle 'cscope_macros.vim'
 Bundle 'gtags.vim'
 Bundle 'OmniCppComplete'
 Bundle 'armasm'
 Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
-"주석달기: \cc, \cn, \cs
-"다른모양 주석 설정: \ca
-"주석해제: \<space>
+"주석??기: \cc, \cn, \cs
+"??른모양 주석 ??정: \ca
+"주석??제: \<space>
 Bundle 'The-NERD-Commenter'
 Bundle 'AutoComplPop'
 "Bundle 'minibufexpl.vim'
@@ -48,52 +49,131 @@ Bundle 'git-file.vim'
 Bundle 'Tagbar'
 Bundle 'lookupfile'
 Bundle 'genutils'
-Bundle 'LustyExplorer'
+"Bundle 'LustyExplorer'
 Bundle 'rking/ag.vim'
+Bundle 'Find-files'
+Bundle 'vim-gitgutter'
 "Bundle 'unite.vim'
 "Bundle 'ctrlp.vim'
 
 :filetype plugin indent on     " required!
 
 "====================================================
-"= 어셈블리 파일을 C처럼 인식하여 주석을 달기 위한 트릭
+"= ??셈블리 ??일??C처럼 ??식??여 주석????기 ??한 ??릭
 "====================================================
 au BufRead,BufNewFile *.S		set ft=c
 
 "====================================================
-"= 기본 설정
+"= 기본 ??정
 "====================================================
-set cindent			"들여쓰기 설정
-set ruler			" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
-set number			" 줄번호 출력
+set cindent			"??여??기 ??정
+set ruler			" ??면 ??측 ??단????재 커서????치(?????????보여준??
+set number			" 줄번??출력
 set modifiable
 set hlsearch			" Highlight Search
-set ts=4			" tab stop - tab 크기
-set sw=4			" shift width - shift 크기 조절
-set sts=4			" soft tab stop - tab 이동 크기
-set expandtab
+set showmatch			" 일치하는 괄호 하이라팅
+set ts=8			" tab stop - tab ??기
+set sw=8			" shift width - shift ??기 조절
+set sts=8			" soft tab stop - tab ??동 ??기
+set noexpandtab
 set incsearch
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
-set gfn=나눔고딕코딩\ 12	" gvim용 폰트 설정
+set gfn=??눔고딕코딩\ 12	" gvim????트 ??정
 "colorscheme desert
+
+
+
+"==========================
+"= vim-gitgutter
+"==========================
+
+set updatetime=100
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
+let g:gitgutter_override_sign_column_highlight = 0
+
+"highlight SignColumn ctermbg=whatever    " terminal Vim
+highlight SignColumn guibg=whatever      " gVim/MacVim
+
+let g:gitgutter_sign_column_always = 1
+let g:gitgutter_max_signs = 500  " default value
+
+"nmap ]h <Plug>GitGutterNextHunk
+"nmap [h <Plug>GitGutterPrevHunk
+"nmap <Leader>ha <Plug>GitGutterStageHunk
+"nmap <Leader>hr :GitGutterUndoHunk<CR>
+"nmap <Leader>hv <Plug>GitGutterPreviewHunk
+nmap <Leader>ht :GitGutterLineHighlightsToggle<CR>
+
+
+"GitGutterAdd          " an added line
+"GitGutterChange       " a changed line
+"GitGutterDelete       " at least one removed line
+"GitGutterChangeDelete " a changed line followed by at least one removed line
+
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = 'm'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^^'
+let g:gitgutter_sign_modified_removed = 'ww'
+
+"GitGutterAddLine          " default: links to DiffAdd
+"GitGutterChangeLine       " default: links to DiffChange
+"GitGutterDeleteLine       " default: links to DiffDelete
+"GitGutterChangeDeleteLine " default: links to GitGutterChangeLineDefault, i.e. DiffChange
+
+"The base of the diff
+"By default buffers are diffed against the index. However you can diff against any commit by setting:
+let g:gitgutter_diff_base = '<commit SHA>'
+
+"Extra arguments for git diff
+"If you want to pass extra arguments to git diff, for example to ignore whitespace, do so like this:
+"let g:gitgutter_diff_args = '-w'
+
+"Key mappings
+"To disable all key mappings:
+let g:gitgutter_map_keys = 1
+
+" Default:
+let g:gitgutter_grep_command = 'grep --color=never -e'
+
+"To turn off vim-gitgutter by default
+let g:gitgutter_enabled = 1
+"To turn off signs by default
+let g:gitgutter_signs = 1
+"To turn on line highlighting by default
+let g:gitgutter_highlight_lines = 0
+"To turn off asynchronous updates
+let g:gitgutter_async = 1
+
+
+
 
 "==========================
 "= autocmd
 "==========================
-autocmd BufEnter *.c        setlocal ts=4 sw=4 sts=4 noexpandtab
+autocmd BufEnter *.c        setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter *.S        setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter *.py       setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter Makefile   setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter .*         setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.dtsi     setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.dts      setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
 autocmd BufEnter *.md       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
 autocmd BufEnter *.sh       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *defconfig setlocal ts=4 sw=4 sts=4 noexpandtab nocindent
+autocmd BufEnter *.bb       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.bbclass  setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.bbappend setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.xml      setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.java     setlocal ts=4 sw=4 sts=4 expandtab nocindent
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 "====================================================
-"= gtags.vim 설정
+"= gtags.vim ??정
 "====================================================
 "nmap <C-F3> :copen<CR>
 "nmap <C-F4> :cclose<CR>
@@ -116,10 +196,9 @@ nmap <C-p> :cp<CR>
 nmap <C-\><C-]> :GtagsCursor<CR>
 
 "====================================================
-"= 키맵핑
-"====================================================
-" <F3> 이전 정의로 이동 (SrcExpl 플러그인이 설정)
-" <F4> 다음 정의로 이동 (SrcExpl 플러그인이 설정)
+"= ??맵??"====================================================
+" <F3> ??전 ??의?????동 (SrcExpl ??러그인????정)
+" <F4> ??음 ??의?????동 (SrcExpl ??러그인????정)
 map ,f v]}zf
 map ,c zi
 map ,t :po<CR>
@@ -127,7 +206,7 @@ map ,g :ta<CR>
 map ,s :tags<CR>
 
 
-"===== tab 전환
+"===== tab ??환
 map .r gt
 map .e gT
 
@@ -145,19 +224,19 @@ nmap <F9> :NERDTreeToggle<CR>
 map <PageUp> <C-U><C-U>
 map <PageDown> <C-D><C-D>
 
-"===== Vim 내의 창 크기 조절
+"===== Vim ??의 ?????기 조절
 nmap <s-h> <C-W><
 nmap <s-j> <C-W>-
 nmap <s-k> <C-W>+
 nmap <s-l> <C-W>>
 
-"===== Vim 내에서 창 간 이동
+"===== Vim ??에??????????동
 nmap <c-h> <c-w>h
-nmap <c-j> <c-w>j 
-nmap <c-k> <c-w>k 
-nmap <c-l> <c-w>l 
+nmap <c-j> <c-w>j
+nmap <c-k> <c-w>k
+nmap <c-l> <c-w>l
 
-"===== 버퍼간 이동
+"===== 버퍼?????동
 map ,r :bn!<CR>	  " Switch to Next File Buffer
 map ,e :bp!<CR>	  " Switch to Previous File Buffer
 map ,w :bw!<CR>	  " Close Current File Buffer
@@ -186,7 +265,7 @@ let startbootdir = getcwd()
 func Make1()
 	exe "!cd ".startbootdir
 	"exe "make tcc8920_evm_emmc -j8"
-	exe "make" 
+	exe "make"
 endfunc
 nmap ,mb :call Make1()<cr><cr>
 
@@ -285,24 +364,29 @@ endif
 "====================================================
 "= NERD Tree
 "====================================================
-let NERDTreeWinPos="right"
-"let NERDTreeWinPos="left"
+"let NERDTreeWinPos="right"
+let NERDTreeWinPos="left"
 let g:NERDTreeWinSize=25
+"let g:NERDTreeWinSize=30
 let g:NERDTreeDirArrows=0
+function! AutoLoadNERDTree()
+	exe 'NERDTree'
+endfunction
+"autocmd VimEnter * call AutoLoadNERDTree()
 
 "====================================================
-"= minibufexpl 
+"= minibufexpl
 "====================================================
-let g:miniBufExplMapWindowNavVim = 1 
-let g:miniBufExplMapWindowNavArrows = 1 
-let g:miniBufExplMapCTabSwitchBufs = 1 
-let g:miniBufExplModSelTarget = 1 
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
 
 "====================================================
-"= tags 설정 (cscope, ctags)
+"= tags ??정 (cscope, ctags)
 "====================================================
 
-"Cscope의 상대경로 문제를 해결하기 위해서 매번 cscope.out파일을 새로 읽는다.
+"Cscope??????경로 문제?????결??기 ??해??매번 cscope.out??일????로 ??는??
 function! LoadCscope()
   exe "silent cs reset"
   let db = findfile("cscope.out", ".;")
@@ -314,8 +398,8 @@ function! LoadCscope()
   endif
 endfunction
 au BufEnter /* call LoadCscope()
- 
-"현재 디렉토리부터 root 디렉토리까지 tags를 찾는다.
+
+"??재 ??렉??리부??root ??렉??리까?? tags???찾는??
 set tags=tags;/
 
 
@@ -337,8 +421,8 @@ set mouse=a
 set magic
 "set paste!
 set nows
-"set cul	" cursor line 사용
-autocmd FileType make setlocal noexpandtab "Makefile 수정 중에는 TAB 사용
+"set cul	" cursor line ??용
+autocmd FileType make setlocal noexpandtab "Makefile ??정 중에??TAB ??용
 set laststatus=2
 set t_Co=256
 set bg=dark
@@ -348,18 +432,19 @@ set shell=/bin/bash
 set hidden
 set cursorline
 
+syntax enable
 "colorscheme desertEx
 "colorscheme badwolf
 colorscheme jellybeans
 
-"===== vim grep 설정
+"===== vim grep ??정
 "set grepprg=grep\ --color=always\ -n\ $*\ /dev/null
 "set makeprg=make\ EXTRA_CFLAGS=-fcolor-diagnostic
 "let $grepfile="*.[ch] *.cpp"
 "map ,gr :grep --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" -nRI <cword> *<CR>
-"map ,gf :grep --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" -nRI 
+"map ,gf :grep --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" -nRI
 map ,gr :!/bin/grep --color=auto --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" --exclude="*.lst" -nRI <cword> *<CR>
-map ,gf :!/bin/grep --color=auto --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" -nRI 
+map ,gf :!/bin/grep --color=auto --exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" -nRI
 
 let g:Grep_Skip_Dirs='.svn'
 let Grep_Path = '/bin/grep'
@@ -367,7 +452,10 @@ let Grep_OpenQuickfixWindow = 1
 let Grep_Default_Options = '--exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" --exclude="*.lst" -nRI'
 "nmap <C-f> :Grep<CR>
 nnoremap <silent> <C-g> :Grep<CR>
-map <C-x><C-x> :GitGrep <C-R>=expand("<cword>")<CR>
+map <Leader>r <ESC>:Rgrep <C-R>=expand("<cword>")<CR>
+map <Leader>jj :Grep -R --include=*.java --include=*.xml --include=*.aidl <C-R>=expand("<cword>")<CR>
+map <Leader>jc :Grep -R --include=*.c --include=*.cc --include=*.cpp --include=*.h <C-R>=expand("<cword>")<CR>
+"map <C-x><C-x> :GitGrep <C-R>=expand("<cword>")<CR>
 
 fu Header_Path_Set(var)
 	let &path = a:var . '/include,' . &path
@@ -406,6 +494,22 @@ fu Header_Path_Set(var)
 						echo temp
 						let &path = temp . &path
 					endif
+					if part =~ "CONFIG_ARCH_TCC896X"
+						let temp = a:var . '/arch/arm/mach-tcc896x/include,'
+						echo temp
+						let &path = temp . &path
+						let temp = a:var . '/arch/arm/include,'
+						echo temp
+						let &path = temp . &path
+					endif
+					if part =~ "CONFIG_ARCH_TCC897X"
+						let temp = a:var . '/arch/arm/mach-tcc897x/include,'
+						echo temp
+						let &path = temp . &path
+						let temp = a:var . '/arch/arm/include,'
+						echo temp
+						let &path = temp . &path
+					endif
 					break
 				endif
 			endfo
@@ -431,35 +535,51 @@ map ,np :set nopaste<CR>	"nopaste
 "nnoremap <C-p> :Unite file_rec/async<cr>
 
 let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'FavFile':{}, 'Tag':{}, 'TaggedFile':{}}
-" 특정 파일 제외
+" ??정 ??일 ??외
 let g:FuzzyFinderOptions.File.excluded_path = '\v\~$|\.o$|\.exe$|\.bak$|\.swp$|\.class$|\.settings$|CVS|((^|[/\\])\.[/\\]$)'
-" 대소문자 구분하기 (0 : 대소문자 구분, 1 : 대소문자 구분 안함)
+" ????문??구분??기 (0 : ????문??구분, 1 : ????문??구분 ??함)
 let g:FuzzyFinderOptions.Base.ignore_case = 0
 
-" 현재 디렉토리 이하에서 파일명으로 검색해서 읽어오기
+" ??재 ??렉??리 ??하??서 ??일명으???검??해????어??기
 "map <Leader>ff <ESC>:FufFile \*\*\/<CR>
 
-" 버퍼 목록에서 검색해서 이동하기
+" 버퍼 목록??서 검??해????동??기
 "map <Leader>fb <ESC>:FufBuffer<CR>
 
 
 "====================================================
-"= ack.vim 설정
+"= ack.vim ??정
 "====================================================
 let g:ackprg = 'ag --vimgrep'
 
 "====================================================
-"= ag.vim 설정
+"= ag.vim ??정
 "====================================================
 "let g:agprg="ag --nogroup --nocolor --column"
 "let g:agprg="ag --nogroup --nocolor --column"
+"let g:agprg='--exclude="*svn*" --exclude="cscope.out" --exclude="*tags*" --exclude="*.lst"'
 let g:agprg="ag --column"
 "let g:agprg="ag --column -i"
 "let g:agprg="ag --column --print0"
-map <Leader>f <ESC>:AgFile 
+map <Leader>f <ESC>:AgFile
 map <Leader>a <ESC>:Ag <C-R>=expand("<cword>")<CR>
 nmap ,o :copen<CR>			"<S-F3>
 nmap ,c :cclose<CR>         	"<S-F4>
+
+"====================================================
+"= ### Vim + Unite.vim
+"====================================================
+" You can use pt with [Unite.vim](https://github.com/Shougo/unite.vim).
+
+nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+if executable('pt')
+  let g:unite_source_grep_command = 'pt'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+  let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_encoding = 'utf-8'
+endif
+
+
 
 " window
 nmap <leader>sw<left>  :topleft  vnew<CR>
@@ -474,4 +594,17 @@ nmap <leader>s<down>   :rightbelow new<CR>
 
 " Show quickfix window with full width
 botright cwindow
+
+
+"==========================
+"= function : Remove Trailing whitespace 2016-03-13
+"==========================
+"func! DeleteTrailingWS()
+	"exe "normal mz"
+	"%s/\s\+$//ge
+	"exe "normal `z"
+"endfunc
+
+"autocmd BufWrite * :call DeleteTrailingWS()
+"autocmd BufWritePre * :%s/\s\+$//e
 
