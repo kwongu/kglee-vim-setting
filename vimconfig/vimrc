@@ -56,6 +56,9 @@ Bundle 'vim-gitgutter'
 "Bundle 'unite.vim'
 "Bundle 'ctrlp.vim'
 
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
+
 :filetype plugin indent on     " required!
 
 "====================================================
@@ -82,6 +85,13 @@ set fileencodings=utf-8,euc-kr
 set gfn=??눔고딕코딩\ 12	" gvim????트 ??정
 "colorscheme desert
 
+
+"==========================
+"= vim-airline
+"==========================
+let g:airline#extensions#tabline#enabled = 1 " turn on buffer list
+let g:airline_theme='hybrid'
+set laststatus=2 " turn on bottom bar
 
 
 "==========================
